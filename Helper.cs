@@ -16,15 +16,17 @@ namespace AbpOven
         /// <returns>Path to project name</returns>
         public static string GetProjectDirectory(string projectName)
         {
-            string path = Directory.GetCurrentDirectory();
-            var idx = path.IndexOf(@"AbpOven", StringComparison.InvariantCultureIgnoreCase);
-            path = path.Substring(0, idx);
-            var projPath = Path.Combine(path, projectName);        
-            return projPath;
+                string path = Directory.GetCurrentDirectory();                
+                var projPath = Path.Combine(path,"src",projectName);
+
+            if (!Directory.Exists(projPath))
+                throw new DirectoryNotFoundException($"Project folder: {proj} not found, must be in solution folder to execute command");
+
+            return projPath;            
         }
 
         /// <summary>
-        /// Get the project file name given the project name
+        /// Get the project file name (.csproj) given the project name
         /// </summary>
         /// <param name="projectName"></param>
         /// <returns>Return the path to the project.csproj file</returns>
@@ -48,7 +50,9 @@ namespace AbpOven
 
         public static string GetTemplatesDirectory()
         {
-            return GetProjectDirectory(@"AbpOven\\Templates");
+            string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Templates");
+            Console.WriteLine(templatePath);
+            return templatePath;
         }
 
         public static void AddFileToProject(List<string> fileList, string projectName)
@@ -62,15 +66,21 @@ namespace AbpOven
             
         }
 
-        public static string GetCoreProjectPath(string arg)
-        {
-            var result = arg.Split('.');
-            if (result.Length < 2)
+
+        /// <summary>
+        /// Return the Path to the Project
+        /// </summary>
+        /// <param name="solutionName">Solution Name</param>
+        /// <param name="projectName">Project Name</param>
+        /// <returns></returns>
+        public static string GetProjectPath(string solutionName, string projectName)
+        {            
+            if (string.IsNullOrEmpty(solutionName) && string.IsNullOrEmpty(projectName))
             {
-                throw new Exception("Project Name and element cannot contain . symbol");
+                throw new Exception("Must provide: Solution Name  and  Project Name");
             }
-            var projectName = result[0] + @".Core";
-            return GetProjectFileName(projectName);
+            return GetProjectDirectory($"{solutionName}.{projectName}");
         }
+        
     }
 }

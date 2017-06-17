@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AbpOven
 {
@@ -30,43 +31,47 @@ namespace AbpOven
 
         static void PrintHelp()
         {
-            Console.WriteLine("USAGE: <command> <element> <ProjectName.[folderName.]itemName>");
+            Console.WriteLine("USAGE: <command> <type> <SolutionName.[<folder>].ElementName>");
             Console.WriteLine("<command>: " +
-                              "c : Create \r\n" +
-                              "<element>:\r\n" +
-                              "  e: Entity \r\n" +
-                              "  s: Service \r\n" +
-                              "  v: View \r\n" +
+                              "-c : Create \r\n" +
+                              "<type>:\r\n" +
+                              "  e: Core Entity \r\n" +
+                              "  s: Application Service \r\n" +                              
                               "  t: Test \r\n" +
                               "  full: Create an entity, service, test, view" +
-                              "note: Every element will be created in the respective project folder");
+                              "note: Every element will be created in the respective project folder. " +
+                              "This tool only works for AspNetCore + AngularJS ");
         }
 
         static void CreateCommand(string[] args)
         {
+            var prms = args[2].Split('.').ToList();
+            string solutionName = prms[0];
+            string element = string.Join(".", prms.Skip(1));
+            CommandFunction cmFunction = new CommandFunction(args[2]);
 
             switch (args[1].ToLower())
             {
                 //syntax: abpOven -c e BaseWebsite.Domain
                 case "e":
-                    var projectPath = Helper.GetCoreProjectPath(args[2]); 
-                    CommandFunction cmFunction =new CommandFunction(args[2]);
+                    //Entity -> Core Project
+                    var projectPath = Helper.GetProjectFileName($"{solutionName}.Core");                     
                     var file = cmFunction.CreateEntity();
                     var fileList = new List<string>() {file};
                     Helper.AddFileToProject(fileList,projectPath);
                     break;
                 case "s":
                     throw new NotImplementedException("Coming soon!!");
-                    break;
+                    //break;
                 case "v":
                     throw new NotImplementedException("Coming soon!!");
-                    break;
+                    //break;
                 case "t":
                     throw new NotImplementedException("Coming soon!!");
-                    break;
+                    //break;
                 case "full":
                     throw new NotImplementedException("Coming soon!!");
-                    break;
+                    //break;
                 default: PrintHelp();
                     break;
             }
