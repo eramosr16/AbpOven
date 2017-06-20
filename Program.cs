@@ -55,10 +55,10 @@ namespace AbpOven
                 //syntax: abpOven -c e BaseWebsite.Domain
                 case "e":
                     //Entity -> Core Project
-                    var projectPath = Helper.GetProjectFileName($"{solutionName}.Core");                     
+                    var projectFileName = Helper.GetProjectFileName($"{solutionName}.Core");                     
                     var file = cmFunction.CreateEntity();
                     var fileList = new List<string>() {file};
-                    Helper.AddFileToProject(fileList,projectPath);
+                    Helper.AddFileToProject(fileList,projectFileName);
                     break;
                 case "s":
                     throw new NotImplementedException("Coming soon!!");

@@ -20,7 +20,7 @@ namespace AbpOven
                 var projPath = Path.Combine(path,"src",projectName);
 
             if (!Directory.Exists(projPath))
-                throw new DirectoryNotFoundException($"Project folder: {proj} not found, must be in solution folder to execute command");
+                throw new DirectoryNotFoundException($"Project folder: {projPath} not found, must be in solution folder to execute command");
 
             return projPath;            
         }
@@ -56,14 +56,21 @@ namespace AbpOven
         }
 
         public static void AddFileToProject(List<string> fileList, string projectName)
-        {            
-            var p = new Microsoft.Build.Evaluation.Project(projectName);
-            foreach (var fileN in fileList)
+        {
+            try
             {
-                p.AddItem("Compile", fileN);
-                p.Save();
+                var p = new Microsoft.Build.Evaluation.Project(projectName);
+                foreach (var fileN in fileList)
+                {
+                    p.AddItem("Compile", fileN);
+                    p.Save();
+                }
+
             }
-            
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fail to add file to project {projectName}: {ex.Message}");                
+            }
         }
 
 
