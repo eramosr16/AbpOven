@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Data.Entity;
 using System.Data.Entity.Design.PluralizationServices;
+using Microsoft.Build.Evaluation;
+using Microsoft.Build.Utilities;
 
 namespace AbpOven
 {
@@ -58,8 +60,8 @@ namespace AbpOven
         public static void AddFileToProject(List<string> fileList, string projectName)
         {
             try
-            {
-                var p = new Microsoft.Build.Evaluation.Project(projectName);
+            {                               
+                var p = new Project(projectName);
                 foreach (var fileN in fileList)
                 {
                     p.AddItem("Compile", fileN);
