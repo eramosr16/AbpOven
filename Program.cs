@@ -31,6 +31,7 @@ namespace AbpOven
 
         static void PrintHelp()
         {
+            //TODO Change the Solution.Name to search the .csproj from the directory
             Console.WriteLine("USAGE: <command> <type> <SolutionName.[<folder>].ElementName>");
             Console.WriteLine("<command>: " +
                               "-c : Create \r\n" +

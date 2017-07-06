@@ -87,6 +87,8 @@
   <ItemGroup>
     <Compile Include="CommandFunction.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\ProjectType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Templates\Application\Dto\CreateEntityInput.cs">

@@ -9,7 +9,7 @@ namespace AbpOven.Templates
     /// <summary>
     /// note: Don't forget register the entity on: BaseWebSiteDbContext
     /// </summary>
-    class EntityTemplate
+    public class EntityTemplate : Entity
     {
     }
 }

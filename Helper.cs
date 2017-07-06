@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.Design.PluralizationServices;
 using Microsoft.Build.Evaluation;
 using Microsoft.Build.Utilities;
+using AbpOven.Model;
 
 namespace AbpOven
 {
@@ -89,6 +90,25 @@ namespace AbpOven
                 throw new Exception("Must provide: Solution Name  and  Project Name");
             }
             return GetProjectDirectory($"{solutionName}.{projectName}");
+        }
+
+
+        public static Dictionary<ProjectType, Model.Project> GetProjectsList(string initialPath)
+        {
+            var result = new Dictionary<ProjectType, Model.Project>();
+            try
+            {
+                foreach (string d in Directory.GetDirectories(initialPath, "*.csproj", SearchOption.AllDirectories))
+                {
+                    var proj = new Model.Project(d);
+                    result.Add(proj.Type,proj);                                      
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         
     }
