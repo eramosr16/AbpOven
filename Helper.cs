@@ -105,8 +105,9 @@ namespace AbpOven
                 }
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 throw;
             }
         }

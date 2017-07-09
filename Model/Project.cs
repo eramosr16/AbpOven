@@ -21,6 +21,13 @@ namespace AbpOven.Model
             SetProjectType(FullPath);
 
         }
+       
+        public ProjectType Type { get; set; }
+
+        public string Name { get; set; }
+
+        public string FullPath { get; set; }
+
 
         private void SetProjectType(string projectPath)
         {
@@ -42,12 +49,6 @@ namespace AbpOven.Model
             if (projectPath.EndsWith(".Web.Host", StringComparison.InvariantCultureIgnoreCase))
                 Type = ProjectType.WebHost;
         }
-
-        public ProjectType Type { get; set; }
-
-        public string Name { get; set; }
-
-        public string FullPath { get; set; }
 
     }
 }
