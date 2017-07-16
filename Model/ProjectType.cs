@@ -7,6 +7,7 @@
         EntityFrameWorkCore,
         Migrator,
         WebCore,
-        WebHost
+        WebHost,
+        Test
     }
 }

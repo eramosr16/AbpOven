@@ -36,17 +36,17 @@ namespace AbpOven
         {
             //TODO Change the Solution.Name to search the .csproj from the directory
             Console.WriteLine("USAGE: <command> <type> [<additional params>] <[<folder>].ElementName>");
-            Console.WriteLine("COMMANDS: " +
-                              "-c : Create \r\n" +
+            Console.WriteLine("COMMANDS:\r\n " +
+                              "<-c> : Create \r\n" +
                               "TYPE:\r\n" +
-                              "  e: Core Entity \r\n" +
+                              "  <e>: Core Entity \r\n" +
                               "     - Additional Params \r\n" +
-                              "       - <m> : Add Multitenancy" +
-                              "       - <s> : Add Soft Delete" +
-                              "       - <ms>: Add Both" +
-                              "  s: Application Service \r\n" +                              
-                              "  t: Test \r\n" +
-                              "  full: Create an entity, service, test, view" +
+                              "       - <m> : Add Multitenancy\r\n" +
+                              "       - <s> : Add Soft Delete\r\n" +
+                              "       - <ms>: Add Both\r\n" +
+                              "  <s>: Application Service \r\n" +                              
+                              "  <t>: Test \r\n" +
+                              "  <full>: Create an entity, service, test, view\r\n" +
                               "EXAMPLES: \r\n " +
                               "AbpOven -c e ms Domain  : Create Entity with Multienancy and Soft Delete" +
                               "note: Every element will be created in the respective project folder. " +
@@ -69,8 +69,8 @@ namespace AbpOven
                     var core = projects[ProjectType.Core];
                     var file = Command.CreateEntity(core,new EntityViewModel(cmdType,element));
 
-                    var fileList = new List<string>() {file};
-                    Helper.AddFileToProject(fileList,core.FullPath);
+                    //var fileList = new List<string>() {file};
+                    //Helper.AddFileToProject(fileList,core.FullPath);
                     break;
                 case "s":
                     throw new NotImplementedException("Coming soon!!");

@@ -48,6 +48,8 @@ namespace AbpOven.Model
 
             if (projectPath.EndsWith(".Web.Host", StringComparison.InvariantCultureIgnoreCase))
                 Type = ProjectType.WebHost;
+            if (projectPath.EndsWith(".Tests", StringComparison.InvariantCultureIgnoreCase))
+                Type = ProjectType.Test;
         }
 
     }

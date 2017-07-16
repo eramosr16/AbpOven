@@ -7,6 +7,7 @@ using System.Data.Entity.Design.PluralizationServices;
 using Microsoft.Build.Evaluation;
 using Microsoft.Build.Utilities;
 using AbpOven.Model;
+using System.Linq;
 
 namespace AbpOven
 {
@@ -62,7 +63,7 @@ namespace AbpOven
         {
             try
             {                               
-                var p = new Project(projectName);
+                var p = new Microsoft.Build.Evaluation.Project(projectName);
                 foreach (var fileN in fileList)
                 {
                     p.AddItem("Compile", fileN);
@@ -98,7 +99,8 @@ namespace AbpOven
             var result = new Dictionary<ProjectType, Model.Project>();
             try
             {
-                foreach (string d in Directory.GetDirectories(initialPath, "*.csproj", SearchOption.AllDirectories))
+                var dirList = Directory.GetFiles(initialPath, "*.csproj", SearchOption.AllDirectories);
+                foreach (string d in dirList)
                 {
                     var proj = new Model.Project(d);
                     result.Add(proj.Type,proj);                                      

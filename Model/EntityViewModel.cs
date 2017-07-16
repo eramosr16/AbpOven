@@ -29,7 +29,7 @@ namespace AbpOven.Model
             }
             var tmp = entityName.Split('.');
             Directory = tmp.Length == 2 ? tmp[1] : Helper.PluralizeElement(tmp[0]);
-            EntityName = tmp[0];
+            EntityName = tmp[0];            
         }
         /// <summary>
         /// Directory inside the project 
@@ -42,6 +42,15 @@ namespace AbpOven.Model
         /// </summary>
         public string EntityName { get; set; }
 
+        /// <summary>
+        /// FileName that contain the Entity
+        /// </summary>
+        public string EntityFileName {
+            get
+            {
+                return $"{EntityName}.cs";
+            }            
+        }
         /// <summary>
         /// Set Multitenancy Flag
         /// </summary>

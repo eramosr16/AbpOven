@@ -1,5 +1,6 @@
 ﻿using AbpOven.Model;
 using RazorEngine;
+using RazorEngine.Configuration;
 using RazorEngine.Templating;
 using System;
 using System.IO;
@@ -15,7 +16,12 @@ namespace AbpOven
         /// <returns>The file path to add in the project</returns>
         public static string CreateEntity(Project project,EntityViewModel entity)
         {
-            var templateFile = Path.Combine(Helper.GetTemplatesDirectory(), @"EntityTemplate.cs");
+            var razor = new TemplateFactory();                        
+            var destPath = Path.Combine(project.FullPath, entity.Directory, entity.EntityFileName);
+            razor.RenderEntity(entity, destPath);
+            
+
+
             //var result = Engine.Razor.RunCompile(new LoadedTemplateSource("Entity", templateFile),typeof(EntityViewModel),entity);
 
             //TODO: Add Razor engine to generate the Entity
